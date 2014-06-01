@@ -23,6 +23,7 @@ namespace LogisticMap {
     public partial class MainWindow : Window, INotifyPropertyChanged {
         public MainWindow() {
             InitializeComponent();
+            this.canvas.ShowAxesLabels = true;
             this.Resolution = 500;
             this.XMin = 1;
             this.YMin = 0;
@@ -30,11 +31,7 @@ namespace LogisticMap {
             this.YMax = 1.0;
         }
         
-
         private static Random rand = new Random();
-        ///TODO: bind the resolution variable. update all code snippets
-
-
 
         private double _XMin;
         public double XMin {
@@ -125,7 +122,6 @@ namespace LogisticMap {
         }
 
         private void Draw_Click_1(object sender, RoutedEventArgs e) {
-
             this.canvas.ArrayWidth = (int)Math.Round(this.canvas.XRange * this.Resolution);
             this.canvas.ArrayHeight = (int)Math.Round(this.canvas.YRange * this.Resolution);
 

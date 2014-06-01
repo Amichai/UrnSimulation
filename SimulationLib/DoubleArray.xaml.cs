@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,8 +25,7 @@ namespace SimulationLib {
     public partial class DoubleArray : UserControl, INotifyPropertyChanged, IDraw {
         public DoubleArray() {
             InitializeComponent();
-            this.ShowAxesLabels = false;
-
+            this.ContentRendered = false;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace SimulationLib {
         /// </summary>
         public void ClearAndInitialize() {
             this.init();
-            this.ShowAxesLabels = false;
+            this.ContentRendered = false;
         }
 
         #region Dependency Properties
@@ -123,7 +123,7 @@ namespace SimulationLib {
                 return;
             }
             this.ImageSource = toImageSource();
-            this.ShowAxesLabels = true;
+            this.ContentRendered = true;
         }
 
         private void init() {
@@ -136,12 +136,21 @@ namespace SimulationLib {
             }
         }
 
+        public bool ContentRendered { get; private set; }
+
+        public bool AreAxesVisible {
+            get {
+                return this.ShowAxesLabels && this.ContentRendered;
+            }
+        }
+
         private bool _ShowAxesLabels;
         public bool ShowAxesLabels {
             get { return _ShowAxesLabels; }
             set {
                 _ShowAxesLabels = value;
                 NotifyPropertyChanged("ShowAxesLabels");
+                NotifyPropertyChanged("AreAxesVisible");
             }
         }
 
@@ -195,13 +204,14 @@ namespace SimulationLib {
             return bitmap as BitmapSource;
         }
 
+        #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(string name) {
-            var eh = PropertyChanged;
-            if (eh != null) {
-                eh(this, new PropertyChangedEventArgs(name));
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "") {
+            if (PropertyChanged != null) {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+        #endregion INotifyPropertyChanged Implementation
 
         private void SaveClick_1(object sender, RoutedEventArgs e) {
             SaveFileDialog sfd = new SaveFileDialog();
@@ -209,6 +219,9 @@ namespace SimulationLib {
             sfd.DefaultExt = ".png";
             sfd.ShowDialog();
             var filename = sfd.FileName;
+            if (string.IsNullOrWhiteSpace(filename)) {
+                return;
+            }
             this.Save(filename);
             Process.Start(filename);
         }
