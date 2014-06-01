@@ -6,7 +6,12 @@
              mc:Ignorable="d" 
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Image Source="{Binding ImageSource}">
+    <UserControl.Resources>
+        <ContextMenu x:Key="CanvasContextMenu">
+            <MenuItem Header="Save" Click="SaveClick_1"/>
+        </ContextMenu>
+    </UserControl.Resources>
+    <Image Source="{Binding ImageSource}" ContextMenu="{StaticResource CanvasContextMenu}" >
         
     </Image>
 </UserControl>

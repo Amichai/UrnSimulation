@@ -27,7 +27,7 @@ namespace ChaosGame {
 
             this.initialVertices = new List<Vector>();
             this.NumberOfVertices = 4;
-            this.NumberOfIterations = 100000;
+            this.NumberOfIterations = 10000;
             this.FractionalStep = .6;
         }
 
@@ -73,8 +73,7 @@ namespace ChaosGame {
         private Vector currentPosition;
 
         private void reset() {
-            //this.canvas.Children.Clear();
-            this.canvas.Clear();
+            this.canvas.ClearAndInitialize();
         }
 
         private List<Vector> getInitialVertices(int numberOfVertices) {
@@ -90,22 +89,12 @@ namespace ChaosGame {
         }
 
         private void draw(Vector v) {
-            //Ellipse e = new Ellipse() {
-            //    Width = 1,
-            //    Height = 1,
-            //    Fill = Brushes.Black,  
-            //};
-            //this.canvas.Children.Add(e);
             var x = v.X + this.Radius;
             var y = v.Y + this.Radius;
-            //Debug.Print(string.Format("{0}, {1}", x, y));
 
             Dispatcher.Invoke((Action)(() => {
                 this.canvas.PixelSet(v, 0);
-
             }));
-            //Canvas.SetLeft(e, x);
-            //Canvas.SetTop(e, y);
         }
 
         private static Random rand = new Random();
@@ -135,7 +124,7 @@ namespace ChaosGame {
                     this.canvas.ArrayWidth = (int)Math.Round(value * 2);
                     this.canvas.ArrayHeight = (int)Math.Round(value * 2);
 
-                    this.canvas.Clear();
+                    this.canvas.ClearAndInitialize();
                     NotifyPropertyChanged("Radius");
                 }
             }

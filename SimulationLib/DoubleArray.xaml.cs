@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,16 +26,19 @@ namespace SimulationLib {
             InitializeComponent();
         }
 
-        public void Clear() {
+        /// <summary>
+        /// Must be called once before calling setPixel()
+        /// </summary>
+        public void ClearAndInitialize() {
             this.init();
         }
 
+        #region Dependency Properties
         public double XMin {
             get { return (double)GetValue(XMinProperty); }
             set { SetValue(XMinProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for XMin.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty XMinProperty =
             DependencyProperty.Register("XMin", typeof(double), typeof(DoubleArray), new PropertyMetadata(0.0));
 
@@ -42,7 +47,6 @@ namespace SimulationLib {
             set { SetValue(XMaxProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for XMax.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty XMaxProperty =
             DependencyProperty.Register("XMax", typeof(double), typeof(DoubleArray), new PropertyMetadata(0.0));
 
@@ -51,7 +55,6 @@ namespace SimulationLib {
             set { SetValue(YMinProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for YMin.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty YMinProperty =
             DependencyProperty.Register("YMin", typeof(double), typeof(DoubleArray), new PropertyMetadata(0.0));
 
@@ -60,9 +63,33 @@ namespace SimulationLib {
             set { SetValue(YMaxProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for YMax.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty YMaxProperty =
             DependencyProperty.Register("YMax", typeof(double), typeof(DoubleArray), new PropertyMetadata(0.0));
+
+        public int ArrayWidth {
+            get { return (int)GetValue(ArrayWidthProperty); }
+            set { SetValue(ArrayWidthProperty, value); }
+        }
+
+        public static readonly DependencyProperty ArrayWidthProperty =
+            DependencyProperty.Register("ArrayWidth", typeof(int), typeof(DoubleArray), new PropertyMetadata(0));
+
+        public int ArrayHeight {
+            get { return (int)GetValue(ArrayHeightProperty); }
+            set { SetValue(ArrayHeightProperty, value); }
+        }
+
+        public static readonly DependencyProperty ArrayHeightProperty =
+            DependencyProperty.Register("ArrayHeight", typeof(int), typeof(DoubleArray), new PropertyMetadata(0));
+
+        public byte DefaultPixelValue {
+            get { return (byte)GetValue(DefaultPixelValueProperty); }
+            set { SetValue(DefaultPixelValueProperty, value); }
+        }
+
+        public static readonly DependencyProperty DefaultPixelValueProperty =
+            DependencyProperty.Register("DefaultPixelValue", typeof(byte), typeof(DoubleArray), new PropertyMetadata((byte)0));
+        #endregion
 
         public double XRange {
             get {
@@ -75,33 +102,6 @@ namespace SimulationLib {
                 return this.YMax - this.YMin;
             }
         }
-
-        public int ArrayWidth {
-            get { return (int)GetValue(ArrayWidthProperty); }
-            set { SetValue(ArrayWidthProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for ArrayWidth.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ArrayWidthProperty =
-            DependencyProperty.Register("ArrayWidth", typeof(int), typeof(DoubleArray), new PropertyMetadata(0));
-
-        public int ArrayHeight {
-            get { return (int)GetValue(ArrayHeightProperty); }
-            set { SetValue(ArrayHeightProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for ArrayHeight.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ArrayHeightProperty =
-            DependencyProperty.Register("ArrayHeight", typeof(int), typeof(DoubleArray), new PropertyMetadata(0));
-
-        public byte DefaultPixelValue {
-            get { return (byte)GetValue(DefaultPixelValueProperty); }
-            set { SetValue(DefaultPixelValueProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for DefaultPixelValue.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty DefaultPixelValueProperty =
-            DependencyProperty.Register("DefaultPixelValue", typeof(byte), typeof(DoubleArray), new PropertyMetadata((byte)0));
 
         private ImageSource _ImageSource;
         public ImageSource ImageSource {
@@ -126,20 +126,11 @@ namespace SimulationLib {
             }
         }
 
-        public double XMultiplier {
-            get {
-                return this.ArrayWidth / (double)this.XRange;
-            }
-        }
-
-        public double YMultiplier {
-            get {
-                return this.ArrayHeight / (double)this.YRange;
-            }
-        }
-
         private byte[][] frame;
 
+        /// <summary>
+        /// Be sure to call clearAndInitialize() before setting pixels on the canvas
+        /// </summary>
         public void PixelSet(Vector v, byte val) {
             if (this.frame == null) {
                 this.init();
@@ -159,31 +150,12 @@ namespace SimulationLib {
             return (int)Math.Round(r);
         }
 
-        public double XOffset {
-            get {
-                return this.XRange / 2.0;
-            }
-        }
-
-        public double YOffset {
-            get {
-                return this.YRange / 2.0;
-            }
-        }
-
         private byte[] toByteArray() {
             var count = this.ArrayWidth * this.ArrayHeight;
             byte[] output = new byte[count];
-            //for (int i = 0; i < this.ArrayWidth; i++) {
-            //    Buffer.BlockCopy(this.frame[i], 0, output, i * this.ArrayHeight, this.ArrayHeight);
-            //}
-
             int counter = 0;
-            //for (int i = this.ArrayHeight - 1; i >= 0; i--) {
-                    for (int i = 0; i < this.ArrayHeight; i++) {
+            for (int i = 0; i < this.ArrayHeight; i++) {
                 for (int j = 0; j < this.ArrayWidth; j++) {
-                    //for (int j = this.ArrayWidth - 1; j >=0; j--) {
-
                     output[counter++] = this.frame[j][i];
                 }
             }
@@ -197,18 +169,10 @@ namespace SimulationLib {
             var pixelFormat = PixelFormats.Gray8; // grayscale bitmap
             var bytesPerPixel = (pixelFormat.BitsPerPixel + 7) / 8; // == 1 in this example
 
-            //var stride = bytesPerPixel * this.ArrayHeight; // == width in this example
-            //var bitmap = BitmapSource.Create(this.ArrayHeight, this.ArrayWidth, dpiX, dpiY,
-            //                                 pixelFormat, null, buffer, stride);
-
             var stride = bytesPerPixel * this.ArrayWidth; // == width in this example
             var bitmap = BitmapSource.Create(this.ArrayWidth, this.ArrayHeight, dpiX, dpiY,
                                              pixelFormat, null, buffer, stride);
 
-
-            //var stride = bytesPerPixel * this.ArrayHeight; // == width in this example
-            //var bitmap = BitmapSource.Create(this.ArrayWidth, this.ArrayHeight, dpiX, dpiY,
-            //                                 pixelFormat, null, buffer, stride);
             return bitmap as BitmapSource;
         }
 
@@ -217,6 +181,28 @@ namespace SimulationLib {
             var eh = PropertyChanged;
             if (eh != null) {
                 eh(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        private void SaveClick_1(object sender, RoutedEventArgs e) {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.AddExtension = true;
+            sfd.DefaultExt = ".png";
+            sfd.ShowDialog();
+            var filename = sfd.FileName;
+            this.Save(filename);
+            Process.Start(filename);
+        }
+
+        /// <summary>
+        /// Will only work after the consumer calls the Draw() method
+        /// </summary>
+        public void Save(string filePath) {
+            using (var fileStream = new FileStream(filePath, FileMode.Create)) {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                var a = BitmapFrame.Create(this.ImageSource as BitmapSource);
+                encoder.Frames.Add(a);
+                encoder.Save(fileStream);
             }
         }
 

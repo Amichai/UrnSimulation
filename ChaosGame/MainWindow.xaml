@@ -37,9 +37,9 @@
                 <TextBox Width="100" Margin="5" Text="{Binding Radius}"></TextBox>
             </StackPanel>
             <Button Grid.Row="5" Margin="10" Padding="10" Click="Run_Click">RUN</Button>
-            <ProgressBar Value="{Binding ProgressVal}" Grid.Row="6" Height="20" />
+            <ProgressBar Value="{Binding ProgressVal}" Grid.Row="6" Height="10" Margin="10 0 10 0" />
         </Grid>
-        <c:DoubleArray Background="White" ArrayWidth="400" ArrayHeight="400" Name="canvas" DefaultPixelValue="255" Grid.Row="1">
+        <c:DoubleArray Background="White" Name="canvas" DefaultPixelValue="255" Grid.Row="1" Margin="10" >
             
         </c:DoubleArray>
     </Grid>

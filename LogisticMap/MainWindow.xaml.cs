@@ -26,7 +26,7 @@ namespace LogisticMap {
             //this.plot.Model = model;
 
             int width = 1000;
-            int height = 1000;
+            int height = 500;
             this.canvas.ArrayWidth = width;
             this.canvas.ArrayHeight = height;
             this.canvas.XMin = 2.5;
@@ -34,24 +34,7 @@ namespace LogisticMap {
             this.canvas.XMax = 4.1;
             this.canvas.YMax = 1.0;
 
-
-            //this.canvas.PixelSet(new Vector(0, 0), 255);
-            //this.canvas.PixelSet(new Vector(-1, 1), 255);
-            //this.canvas.PixelSet(new Vector(-2, 2), 255);
-            //this.canvas.PixelSet(new Vector(-2, -2), 255);
-            //this.canvas.PixelSet(new Vector(6, 6), 255);
-
-
-
             this.Run(1, 4, .001);
-
-            //for (int i = 0; i < 10000; i++) {
-            //    var x = rand.NextDouble() * 3 * Math.Sign(rand.NextDouble() - .5);
-            //    var y = rand.NextDouble() * 3 * Math.Sign(rand.NextDouble() - .5);
-            //    //var x = rand.NextDouble() * width;
-            //    //var y = rand.NextDouble() * height;
-            //    this.canvas.PixelSet(new Vector(x, y), 255);
-            //}
             this.canvas.Draw();
         }
 
