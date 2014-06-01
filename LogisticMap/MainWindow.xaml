@@ -1,0 +1,12 @@
+﻿<Window x:Class="LogisticMap.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:oxy="http://oxyplot.codeplex.com"
+        xmlns:c="clr-namespace:SimulationLib;assembly=SimulationLib"
+        Title="MainWindow" Height="350" Width="525">
+    
+    <Grid>
+        <!--<oxy:Plot Name="plot"></oxy:Plot>-->
+        <c:DoubleArray x:Name="canvas" DefaultPixelValue="100"></c:DoubleArray>
+    </Grid>
+</Window>

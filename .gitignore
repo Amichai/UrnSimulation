@@ -4,3 +4,10 @@ UrnSimulation/bin/
 UrnVisualizer/bin/
 UrnVisualizer/obj/
 UrnSimulation.v11.suo
+ChaosGame/obj/
+ChaosGame/bin/
+LogisticMap/bin/
+LogisticMap/obj/
+SimulationLib/bin/
+SimulationLib/obj/
+SimulationLibTest/obj/

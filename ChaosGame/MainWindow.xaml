@@ -1,0 +1,46 @@
+﻿<Window x:Class="ChaosGame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:c="clr-namespace:SimulationLib;assembly=SimulationLib"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="ChaosGame" Height="650" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="5">CHAOS GAME</TextBlock>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBlock FontWeight="Bold" Margin="5" Text="Number of vertices:"></TextBlock>
+                <TextBox Width="100" Margin="5" Text="{Binding NumberOfVertices}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <TextBlock FontWeight="Bold" Margin="5" Text="Fractional step:"></TextBlock>
+                <TextBox Width="100" Margin="5" Text="{Binding FractionalStep}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="3">
+                <TextBlock FontWeight="Bold" Margin="5" Text="Number of iterations:"></TextBlock>
+                <TextBox Width="100" Margin="5" Text="{Binding NumberOfIterations}"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="4">
+                <TextBlock FontWeight="Bold" Margin="5" Text="Radius:"></TextBlock>
+                <TextBox Width="100" Margin="5" Text="{Binding Radius}"></TextBox>
+            </StackPanel>
+            <Button Grid.Row="5" Margin="10" Padding="10" Click="Run_Click">RUN</Button>
+            <ProgressBar Value="{Binding ProgressVal}" Grid.Row="6" Height="20" />
+        </Grid>
+        <c:DoubleArray Background="White" ArrayWidth="400" ArrayHeight="400" Name="canvas" DefaultPixelValue="255" Grid.Row="1">
+            
+        </c:DoubleArray>
+    </Grid>
+</Window>
