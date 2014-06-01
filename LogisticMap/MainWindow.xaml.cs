@@ -26,7 +26,7 @@ namespace LogisticMap {
             //this.plot.Model = model;
 
             int width = 1000;
-            int height = 500;
+            int height = 1000;
             this.canvas.ArrayWidth = width;
             this.canvas.ArrayHeight = height;
             this.canvas.XMin = 2.5;

@@ -19,7 +19,7 @@ namespace SimulationLib {
     /// <summary>
     /// Interaction logic for DoubleArray.xaml
     /// </summary>
-    public partial class DoubleArray : UserControl, INotifyPropertyChanged {
+    public partial class DoubleArray : UserControl, INotifyPropertyChanged, IDraw {
         public DoubleArray() {
             InitializeComponent();
         }
@@ -126,7 +126,7 @@ namespace SimulationLib {
             }
         }
 
-        public double XMultiplier { 
+        public double XMultiplier {
             get {
                 return this.ArrayWidth / (double)this.XRange;
             }
@@ -170,7 +170,7 @@ namespace SimulationLib {
                 return this.YRange / 2.0;
             }
         }
-        
+
         private byte[] toByteArray() {
             var count = this.ArrayWidth * this.ArrayHeight;
             byte[] output = new byte[count];
@@ -179,11 +179,11 @@ namespace SimulationLib {
             //}
 
             int counter = 0;
-            for (int j = 0; j < this.ArrayWidth; j++) {
-            //for (int j = this.ArrayWidth - 1; j >=0; j--) {
+            //for (int i = this.ArrayHeight - 1; i >= 0; i--) {
+                    for (int i = 0; i < this.ArrayHeight; i++) {
+                for (int j = 0; j < this.ArrayWidth; j++) {
+                    //for (int j = this.ArrayWidth - 1; j >=0; j--) {
 
-                //for (int i = 0; i < this.ArrayHeight; i++) {
-                for (int i = this.ArrayHeight - 1; i >= 0; i--) {
                     output[counter++] = this.frame[j][i];
                 }
             }
@@ -219,6 +219,6 @@ namespace SimulationLib {
                 eh(this, new PropertyChangedEventArgs(name));
             }
         }
-        
+
     }
 }

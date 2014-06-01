@@ -11,3 +11,5 @@ LogisticMap/obj/
 SimulationLib/bin/
 SimulationLib/obj/
 SimulationLibTest/obj/
+SimulationLibTest/bin/
+TestResults/
