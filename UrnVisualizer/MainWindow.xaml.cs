@@ -16,7 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UrnSimulation;
 
 namespace UrnVisualizer {
     /// <summary>
@@ -25,6 +24,8 @@ namespace UrnVisualizer {
     public partial class MainWindow : Window, INotifyPropertyChanged {
         public MainWindow() {
             InitializeComponent();
+            this.NumberOfDraws = 1000;
+            this.NumberOfTrials = 20;
             this.plotModel = new PlotModel();
             this.plot.Model = this.plotModel;
         }

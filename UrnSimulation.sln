@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrnSimulation", "UrnSimulation\UrnSimulation.csproj", "{C3283141-4F08-4A18-8B76-A746CE566718}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrnVisualizer", "UrnVisualizer\UrnVisualizer.csproj", "{8E7FCC39-34BE-4F18-8ECA-BC309FC48971}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogisticMap", "LogisticMap\LogisticMap.csproj", "{76C31470-25BF-4FCB-9851-2163A85AE86C}"
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C3283141-4F08-4A18-8B76-A746CE566718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C3283141-4F08-4A18-8B76-A746CE566718}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C3283141-4F08-4A18-8B76-A746CE566718}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C3283141-4F08-4A18-8B76-A746CE566718}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E7FCC39-34BE-4F18-8ECA-BC309FC48971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E7FCC39-34BE-4F18-8ECA-BC309FC48971}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E7FCC39-34BE-4F18-8ECA-BC309FC48971}.Release|Any CPU.ActiveCfg = Release|Any CPU

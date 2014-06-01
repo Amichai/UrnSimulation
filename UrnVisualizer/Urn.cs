@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UrnSimulation {
+namespace UrnVisualizer {
     public class Urn {
         public Urn() {
             this.WhiteBalls = 1;
