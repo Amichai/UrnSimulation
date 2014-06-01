@@ -7,11 +7,26 @@
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <ContextMenu x:Key="CanvasContextMenu">
+        <ContextMenu x:Key="CanvasContextMenu"> 
             <MenuItem Header="Save" Click="SaveClick_1"/>
         </ContextMenu>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
-    <Image Source="{Binding ImageSource}" ContextMenu="{StaticResource CanvasContextMenu}" >
-        
-    </Image>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Image Source="{Binding ImageSource}" ContextMenu="{StaticResource CanvasContextMenu}" Grid.Column="1" Grid.Row="0"/>
+        <TextBlock Text="{Binding XMin}" Grid.Row="1" Grid.Column="1" Visibility="{Binding ShowAxesLabels, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <TextBlock Text="{Binding XMax}" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" Visibility="{Binding ShowAxesLabels, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+        <TextBlock Text="{Binding YMin}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding ShowAxesLabels, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <TextBlock Text="{Binding YMax}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="{Binding ShowAxesLabels, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+    </Grid>
 </UserControl>

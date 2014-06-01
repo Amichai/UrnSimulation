@@ -24,6 +24,8 @@ namespace SimulationLib {
     public partial class DoubleArray : UserControl, INotifyPropertyChanged, IDraw {
         public DoubleArray() {
             InitializeComponent();
+            this.ShowAxesLabels = false;
+
         }
 
         /// <summary>
@@ -31,6 +33,7 @@ namespace SimulationLib {
         /// </summary>
         public void ClearAndInitialize() {
             this.init();
+            this.ShowAxesLabels = false;
         }
 
         #region Dependency Properties
@@ -108,12 +111,19 @@ namespace SimulationLib {
             get { return _ImageSource; }
             set {
                 _ImageSource = value;
-                OnPropertyChanged("ImageSource");
+                NotifyPropertyChanged("ImageSource");
             }
         }
 
         public void Draw() {
+            if (this.XRange <= 0) {
+                return;
+            }
+            if (this.YRange <= 0) {
+                return;
+            }
             this.ImageSource = toImageSource();
+            this.ShowAxesLabels = true;
         }
 
         private void init() {
@@ -123,6 +133,15 @@ namespace SimulationLib {
                 for (int j = 0; j < this.ArrayHeight; j++) {
                     frame[i][j] = this.DefaultPixelValue;
                 }
+            }
+        }
+
+        private bool _ShowAxesLabels;
+        public bool ShowAxesLabels {
+            get { return _ShowAxesLabels; }
+            set {
+                _ShowAxesLabels = value;
+                NotifyPropertyChanged("ShowAxesLabels");
             }
         }
 
@@ -177,7 +196,7 @@ namespace SimulationLib {
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string name) {
+        private void NotifyPropertyChanged(string name) {
             var eh = PropertyChanged;
             if (eh != null) {
                 eh(this, new PropertyChangedEventArgs(name));

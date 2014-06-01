@@ -2,6 +2,7 @@
 using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,40 +20,70 @@ namespace LogisticMap {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class MainWindow : Window, INotifyPropertyChanged {
         public MainWindow() {
             InitializeComponent();
-            //this.model = new PlotModel();
-            //this.plot.Model = model;
-
-            int width = 1000;
-            int height = 500;
-            this.canvas.ArrayWidth = width;
-            this.canvas.ArrayHeight = height;
-            this.canvas.XMin = 2.5;
-            this.canvas.YMin = 0;
-            this.canvas.XMax = 4.1;
-            this.canvas.YMax = 1.0;
-
-            this.Run(1, 4, .001);
-            this.canvas.Draw();
+            this.Resolution = 500;
+            this.XMin = 1;
+            this.YMin = 0;
+            this.XMax = 4.0;
+            this.YMax = 1.0;
         }
+        
 
         private static Random rand = new Random();
+        ///TODO: bind the resolution variable. update all code snippets
 
-        //private PlotModel model;
 
-        ///Test databinding the array width dp!
-        //private string _PropertyName;
-        //public string PropertyName {
-        //    get { return _PropertyName; }
-        //    set {
-        //        if (_PropertyName != value) {
-        //            _PropertyName = value;
-        //            OnPropertyChanged("PropertyName");
-        //        }
-        //    }
-        //}
+
+        private double _XMin;
+        public double XMin {
+            get { return _XMin; }
+            set {
+                _XMin = value;
+                this.canvas.XMin = value;
+                NotifyPropertyChanged("XMin");
+            }
+        }
+
+        private double _XMax;
+        public double XMax {
+            get { return _XMax; }
+            set {
+                _XMax = value;
+                this.canvas.XMax = value;
+                NotifyPropertyChanged("XMax");
+            }
+        }
+
+        private double _YMin;
+        public double YMin {
+            get { return _YMin; }
+            set {
+                _YMin = value;
+                this.canvas.YMin = value;
+                NotifyPropertyChanged("YMin");
+            }
+        }
+
+        private double _YMax;
+        public double YMax {
+            get { return _YMax; }
+            set {
+                _YMax = value;
+                this.canvas.YMax = value;
+                NotifyPropertyChanged("YMax");
+            }
+        }
+
+        private int _Resolution;
+        public int Resolution {
+            get { return _Resolution; }
+            set {
+                _Resolution = value;
+                NotifyPropertyChanged("Resolution");
+            }
+        }
 
         private List<double> sequence(Func<double, double> f, double initialVal, double maxIter) {
             List<double> toReturn = new List<double>();
@@ -83,8 +114,7 @@ namespace LogisticMap {
                 foreach (var A in results) {
                     //if (activeThreadValues.Where(j => j < A + eps && j > A - eps).Count() == 0)
                     //    activeThreadValues.Add(A);
-                    //s.Points.Add(new ScatterPoint(r, A));
-                    this.canvas.PixelSet(new Vector(r, A), 255);
+                    this.canvas.PixelSet(new Vector(r, A), 0);
                 }
                 //if (activeThreadValues.Count > numberOfThreadsInMap) {
                 //    Console.WriteLine("Bifurcation point: " + r.ToString() + " " + activeThreadValues.Count.ToString() + " threads.");
@@ -92,8 +122,23 @@ namespace LogisticMap {
                 //    eps /= numberOfThreadsInMap;
                 //}
             }
-            //this.model.Series.Add(s);
-            //this.model.InvalidatePlot(true);
+        }
+
+        private void Draw_Click_1(object sender, RoutedEventArgs e) {
+
+            this.canvas.ArrayWidth = (int)Math.Round(this.canvas.XRange * this.Resolution);
+            this.canvas.ArrayHeight = (int)Math.Round(this.canvas.YRange * this.Resolution);
+
+            this.canvas.ClearAndInitialize();
+            this.Run(1, 4, .001);
+            this.canvas.Draw();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void NotifyPropertyChanged(string propertyName) {
+            if (PropertyChanged != null) {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }

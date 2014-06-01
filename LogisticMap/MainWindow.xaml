@@ -3,10 +3,49 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:oxy="http://oxyplot.codeplex.com"
         xmlns:c="clr-namespace:SimulationLib;assembly=SimulationLib"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="MainWindow" Height="350" Width="525">
     
     <Grid>
-        <!--<oxy:Plot Name="plot"></oxy:Plot>-->
-        <c:DoubleArray x:Name="canvas" DefaultPixelValue="100"></c:DoubleArray>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition  Width="*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition  Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontWeight="Bold">XMin:</TextBlock>
+            <TextBox Grid.Column="1" Text="{Binding XMin}"></TextBox>
+            <TextBlock FontWeight="Bold" Grid.Column="2" Margin="20 0 0 0">XMax:</TextBlock>
+            <TextBox Grid.Column="3" Text="{Binding XMax}"></TextBox>
+
+            <TextBlock FontWeight="Bold" Grid.Row="1">YMin:</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding YMin}"></TextBox>
+            <TextBlock FontWeight="Bold" Grid.Row="1" Grid.Column="2" Margin="20 0 0 0">YMax:</TextBlock>
+            <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding YMax}"></TextBox>
+
+            <TextBlock FontWeight="Bold" Grid.Row="2">Resolution:</TextBlock>
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Resolution}"></TextBox>
+            
+            <Button Grid.Row="3" Grid.RowSpan="2" Margin="10" Padding="10 3 10 3" Click="Draw_Click_1">
+                Draw
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1" Background="White">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <c:DoubleArray x:Name="canvas" DefaultPixelValue="250" />
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>
