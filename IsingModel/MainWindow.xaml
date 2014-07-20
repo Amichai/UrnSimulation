@@ -1,0 +1,113 @@
+﻿<Window x:Class="IsingModel.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:oxy="http://oxyplot.codeplex.com"
+        xmlns:c="clr-namespace:SimulationLib;assembly=SimulationLib"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Title="MainWindow" Height="550" Width="925">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="10" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" FontFamily="Georgia">Ising Model</TextBlock>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Simulation Lattice" DataContext="{Binding LatticeSimulation}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="145" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <Grid Margin="20 0 20 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="200" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" FontWeight="Bold">Temperature</TextBlock>
+                            <TextBox Grid.Column="1" Text="{Binding Temperature}"></TextBox>
+
+                            <TextBlock Grid.Column="0" Grid.Row="1" FontWeight="Bold">Time Step</TextBlock>
+                            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding TimeStep}"></TextBox>
+
+                            <TextBlock Grid.Column="0" Grid.Row="2" FontWeight="Bold">Energy</TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Energy}">
+                            </TextBlock>
+
+                            <TextBlock Grid.Column="0" Grid.Row="3" FontWeight="Bold">Spin Sum</TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding SpinSum}"></TextBlock>
+
+                            <TextBlock Grid.Column="0" Grid.Row="4" FontWeight="Bold">Normalized Energy</TextBlock>
+                            <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding NormalizedEnergy}"></TextBlock>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Margin="20 5 5 5" Padding="0 3 0 3" Width="150" HorizontalAlignment="Left" Click="Reset_Click_1">Reset</Button>
+                            <Button Margin="20 5 5 5" Padding="0 3 0 3" Width="150" HorizontalAlignment="Left" Click="StartStop_Click_1" Content="{Binding StartStopText}"></Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition  Width="5"/>
+                            <ColumnDefinition Width="1.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <c:DoubleArray Background="White" Name="canvas" DefaultPixelValue="255" Grid.Row="1" Margin="10"  HorizontalAlignment="Left">
+                            </c:DoubleArray>
+                        </Grid>
+                        <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></GridSplitter>
+                        <Grid Grid.Column="2">
+                            <oxy:Plot x:Name="plot" Model="{Binding PlotModel}">
+                            </oxy:Plot>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Phase Transition" DataContext="{Binding PhaseTransition}" IsSelected="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition  Height="Auto"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock FontWeight="Bold">Number of iterations:</TextBlock>
+                        <TextBox Grid.Column="1" Text="{Binding Iter}"></TextBox>
+                        
+                        <TextBlock Grid.Row="1" FontWeight="Bold">T0:</TextBlock>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding T0}"></TextBox>
+
+                        <TextBlock Grid.Row="2" FontWeight="Bold">Tf:</TextBlock>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Tf}"></TextBox>
+
+                        <TextBlock Grid.Row="3" FontWeight="Bold">dT:</TextBlock>
+                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding dT}"></TextBox>
+                    </Grid>
+                    <Button Grid.Row="1" Margin="10" Padding="5" HorizontalAlignment="Left" Width="100" Click="RunSimulation_Click_1">Run</Button>
+                    <Grid Grid.Row="2">
+                        <oxy:Plot Model="{Binding PlotModel}">
+                            
+                        </oxy:Plot>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

@@ -39,7 +39,7 @@ namespace SimulationLib {
         #region Dependency Properties
         public double XMin {
             get { return (double)GetValue(XMinProperty); }
-            set { SetValue(XMinProperty, value); }
+            private set { SetValue(XMinProperty, value); }
         }
 
         public static readonly DependencyProperty XMinProperty =
@@ -47,7 +47,7 @@ namespace SimulationLib {
 
         public double XMax {
             get { return (double)GetValue(XMaxProperty); }
-            set { SetValue(XMaxProperty, value); }
+            private set { SetValue(XMaxProperty, value); }
         }
 
         public static readonly DependencyProperty XMaxProperty =
@@ -55,7 +55,7 @@ namespace SimulationLib {
 
         public double YMin {
             get { return (double)GetValue(YMinProperty); }
-            set { SetValue(YMinProperty, value); }
+            private set { SetValue(YMinProperty, value); }
         }
 
         public static readonly DependencyProperty YMinProperty =
@@ -63,7 +63,7 @@ namespace SimulationLib {
 
         public double YMax {
             get { return (double)GetValue(YMaxProperty); }
-            set { SetValue(YMaxProperty, value); }
+            private set { SetValue(YMaxProperty, value); }
         }
 
         public static readonly DependencyProperty YMaxProperty =
@@ -71,7 +71,7 @@ namespace SimulationLib {
 
         public int ArrayWidth {
             get { return (int)GetValue(ArrayWidthProperty); }
-            set { SetValue(ArrayWidthProperty, value); }
+            private set { SetValue(ArrayWidthProperty, value); }
         }
 
         public static readonly DependencyProperty ArrayWidthProperty =
@@ -79,7 +79,7 @@ namespace SimulationLib {
 
         public int ArrayHeight {
             get { return (int)GetValue(ArrayHeightProperty); }
-            set { SetValue(ArrayHeightProperty, value); }
+            private set { SetValue(ArrayHeightProperty, value); }
         }
 
         public static readonly DependencyProperty ArrayHeightProperty =
@@ -238,5 +238,15 @@ namespace SimulationLib {
             }
         }
 
+
+        public void Setup(int arrayWidth, int arrayHeight, int xMin, int xMax, int yMin, int yMax) {
+            this.ArrayWidth = arrayWidth;
+            this.ArrayHeight = arrayHeight;
+            this.XMin = xMin;
+            this.XMax = xMax;
+            this.YMin = yMin;
+            this.YMax = yMax;
+            this.ClearAndInitialize();
+        }
     }
 }

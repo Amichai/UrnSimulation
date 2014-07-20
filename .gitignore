@@ -13,3 +13,6 @@ SimulationLib/obj/
 SimulationLibTest/obj/
 SimulationLibTest/bin/
 TestResults/
+IsingModel/bin/
+IsingModel/obj/
+UnitTests/obj/
