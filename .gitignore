@@ -13,3 +13,5 @@ SimulationLib/obj/
 SimulationLibTest/obj/
 SimulationLibTest/bin/
 TestResults/
+SimulationViz/bin/
+SimulationViz/obj/

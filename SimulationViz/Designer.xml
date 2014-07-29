@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Canvas ArrayWidth="20" ArrayHeight="20" XMin="-5" XMax="5" YMin="-5" YMax="5">
+  <Layers>
+    <Function FofXY="33.3* 22 * 10* x * y">
+      
+    </Function>
+  </Layers>
+</Canvas>
