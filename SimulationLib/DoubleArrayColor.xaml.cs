@@ -183,6 +183,23 @@ namespace SimulationLib {
 
         //private byte[][] frame;
 
+        public void PixelAdd(Vector v, Color val) {
+            var i = rd(((v.X - this.XMin) / this.XRange) * this.ArrayWidth);
+            var j = rd(((v.Y - this.YMin) / this.YRange) * this.ArrayHeight);
+            if (i < 0 || i > this.ArrayWidth - 1) {
+                return;
+            }
+            if (j < 0 || j > this.ArrayHeight - 1) {
+                return;
+            }
+
+            var y = this.ArrayHeight - j - 1;
+
+            this.r.AddToCell(i, y, val.R);
+            this.g.AddToCell(i, y, val.G);
+            this.b.AddToCell(i, y, val.B);
+        }
+
         /// <summary>
         /// Be sure to call clearAndInitialize() before setting pixels on the canvas
         /// </summary>

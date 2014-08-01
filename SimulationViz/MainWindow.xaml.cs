@@ -24,19 +24,27 @@ namespace SimulationViz {
             var xml = XElement.Load(@"Designer.xml");
             loadCanvas(xml);
             this.canvas.ClearAndInitialize();
+
+            this.mappings = xml.Element("ColorMappings").Elements().Select(i => ColorMapping.FromXml(i)).ToList();
             draw(xml);
         }
 
+        private List<ColorMapping> mappings;
+
         private void draw(XElement xml) {
+            int counter = 0;
             foreach (var layer in xml.Element("Layers").Elements()) {
                 switch (layer.Name.LocalName) {
                     case "Function":
                         var f = FunctionLayer.FromXml(layer);
-                        f.Paint(this.canvas);
+                        
+                        f.Paint(this.canvas, this.mappings.ElementAt(counter++));
                         break;
 
                 }
             }
+            canvas.Draw();
+
         }
 
         private void loadCanvas(XElement xml) {

@@ -8,7 +8,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Xml.Linq;
 using System.Linq.Dynamic;
-using System.Linq;
+
 using System.Diagnostics;
 
 namespace SimulationViz {
@@ -26,7 +26,7 @@ namespace SimulationViz {
             return l;
         }
 
-        public void Paint(DoubleArrayColor canvas) {
+        public void Paint(DoubleArrayColor canvas, ColorMapping mapping) {
             var width = canvas.ArrayWidth;
             var height = canvas.ArrayHeight;
             var xConv = canvas.XRange / width;
@@ -35,15 +35,10 @@ namespace SimulationViz {
                 for (int j = 0; j < height; j++) {
                     double x = i  * xConv + canvas.XMin;
                     double y = j * yConv + canvas.YMin;
-
-                    byte r = (byte)((int)Math.Round(this.Eval(x, y)) % 255);
-                    byte g = (byte)((int)Math.Round(this.Eval(y, x)) % 255);
-                    byte b = 200;
-
-                    canvas.PixelSet(new Vector(x, y), Color.FromRgb(r, g, b));
+                    Color c = mapping.Map(this.Eval(x, y));
+                    canvas.PixelAdd(new Vector(x, y), c);
                 }
             }
-            canvas.Draw();
         }
         
         public double Eval(double x, double y) {

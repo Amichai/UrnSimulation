@@ -39,7 +39,7 @@ namespace SimulationLib {
         #region Dependency Properties
         public double XMin {
             get { return (double)GetValue(XMinProperty); }
-            private set { SetValue(XMinProperty, value); }
+            set { SetValue(XMinProperty, value); }
         }
 
         public static readonly DependencyProperty XMinProperty =
@@ -47,7 +47,7 @@ namespace SimulationLib {
 
         public double XMax {
             get { return (double)GetValue(XMaxProperty); }
-            private set { SetValue(XMaxProperty, value); }
+            set { SetValue(XMaxProperty, value); }
         }
 
         public static readonly DependencyProperty XMaxProperty =
@@ -55,7 +55,7 @@ namespace SimulationLib {
 
         public double YMin {
             get { return (double)GetValue(YMinProperty); }
-            private set { SetValue(YMinProperty, value); }
+            set { SetValue(YMinProperty, value); }
         }
 
         public static readonly DependencyProperty YMinProperty =
@@ -63,7 +63,7 @@ namespace SimulationLib {
 
         public double YMax {
             get { return (double)GetValue(YMaxProperty); }
-            private set { SetValue(YMaxProperty, value); }
+            set { SetValue(YMaxProperty, value); }
         }
 
         public static readonly DependencyProperty YMaxProperty =
@@ -71,7 +71,7 @@ namespace SimulationLib {
 
         public int ArrayWidth {
             get { return (int)GetValue(ArrayWidthProperty); }
-            private set { SetValue(ArrayWidthProperty, value); }
+            set { SetValue(ArrayWidthProperty, value); }
         }
 
         public static readonly DependencyProperty ArrayWidthProperty =
@@ -79,7 +79,7 @@ namespace SimulationLib {
 
         public int ArrayHeight {
             get { return (int)GetValue(ArrayHeightProperty); }
-            private set { SetValue(ArrayHeightProperty, value); }
+            set { SetValue(ArrayHeightProperty, value); }
         }
 
         public static readonly DependencyProperty ArrayHeightProperty =
@@ -136,7 +136,7 @@ namespace SimulationLib {
             }
         }
 
-        public bool ContentRendered { get; private set; }
+        public bool ContentRendered { get; set; }
 
         public bool AreAxesVisible {
             get {
@@ -246,6 +246,11 @@ namespace SimulationLib {
         internal byte GetCell(int i, int j) {
             return this.frame[i][j];
         }
+
+        internal void AddToCell(int i, int y, byte p) {
+            this.frame[i][y] += p;
+        }
+
         public void Setup(int arrayWidth, int arrayHeight, int xMin, int xMax, int yMin, int yMax) {
             this.ArrayWidth = arrayWidth;
             this.ArrayHeight = arrayHeight;
