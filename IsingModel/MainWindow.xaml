@@ -70,7 +70,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Phase Transition" DataContext="{Binding PhaseTransition}" IsSelected="True">
+            <TabItem Header="Phase Transition" DataContext="{Binding PhaseTransition}" IsSelected="False">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

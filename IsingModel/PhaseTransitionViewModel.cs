@@ -18,7 +18,7 @@ namespace IsingModel {
             this.Tf = 4;
             this.dT = .2;
             this.Iter = 1000000;
-            this.RunSimulation();
+            //this.RunSimulation();
         }
 
         private LineSeries series;

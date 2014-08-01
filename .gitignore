@@ -16,3 +16,6 @@ TestResults/
 IsingModel/bin/
 IsingModel/obj/
 UnitTests/obj/
+ArtGen/bin/
+ArtGen/obj/
+UnitTests/bin/

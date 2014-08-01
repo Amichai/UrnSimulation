@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsingModel", "IsingModel\Is
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{CA6CD0CB-EB2C-497A-B68C-379CA965185C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtGen", "ArtGen\ArtGen.csproj", "{3C5B9430-560E-41BC-9D02-2538E7B13194}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{CA6CD0CB-EB2C-497A-B68C-379CA965185C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA6CD0CB-EB2C-497A-B68C-379CA965185C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA6CD0CB-EB2C-497A-B68C-379CA965185C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C5B9430-560E-41BC-9D02-2538E7B13194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C5B9430-560E-41BC-9D02-2538E7B13194}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C5B9430-560E-41BC-9D02-2538E7B13194}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C5B9430-560E-41BC-9D02-2538E7B13194}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
