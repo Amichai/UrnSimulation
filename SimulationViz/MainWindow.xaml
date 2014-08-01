@@ -4,8 +4,14 @@
         xmlns:sim="clr-namespace:SimulationLib;assembly=SimulationLib"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <sim:DoubleArray Name="canvas">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+
+        </Grid.RowDefinitions>
+        <Button Margin="5" Padding="3" HorizontalAlignment="Left" Width="100" Click="Reload_Click">Reload</Button>
+        <sim:DoubleArrayColor Name="canvas" Grid.Row="1">
             
-        </sim:DoubleArray>
+        </sim:DoubleArrayColor>
     </Grid>
 </Window>

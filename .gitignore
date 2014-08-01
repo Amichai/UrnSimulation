@@ -18,6 +18,8 @@ IsingModel/obj/
 SimulationViz/bin/
 SimulationViz/obj/
 UnitTests/obj/
+UrnSimulation.v12.suo
 ArtGen/bin/
 ArtGen/obj/
 UnitTests/bin/
+*.orig

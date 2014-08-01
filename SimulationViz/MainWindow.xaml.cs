@@ -21,16 +21,13 @@ namespace SimulationViz {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
-
             var xml = XElement.Load(@"Designer.xml");
-            this.canvas.ArrayWidth = int.Parse(xml.Attribute("ArrayWidth").Value);
-            this.canvas.ArrayHeight = int.Parse(xml.Attribute("ArrayHeight").Value);
-            this.canvas.XMin = double.Parse(xml.Attribute("XMin").Value);
-            this.canvas.XMax = double.Parse(xml.Attribute("XMax").Value);
-            this.canvas.YMin = double.Parse(xml.Attribute("YMin").Value);
-            this.canvas.YMax = double.Parse(xml.Attribute("YMax").Value);
+            loadCanvas(xml);
+            this.canvas.ClearAndInitialize();
+            draw(xml);
+        }
 
-
+        private void draw(XElement xml) {
             foreach (var layer in xml.Element("Layers").Elements()) {
                 switch (layer.Name.LocalName) {
                     case "Function":
@@ -40,6 +37,22 @@ namespace SimulationViz {
 
                 }
             }
+        }
+
+        private void loadCanvas(XElement xml) {
+            this.canvas.ArrayWidth = int.Parse(xml.Attribute("ArrayWidth").Value);
+            this.canvas.ArrayHeight = int.Parse(xml.Attribute("ArrayHeight").Value);
+            this.canvas.XMin = double.Parse(xml.Attribute("XMin").Value);
+            this.canvas.XMax = double.Parse(xml.Attribute("XMax").Value);
+            this.canvas.YMin = double.Parse(xml.Attribute("YMin").Value);
+            this.canvas.YMax = double.Parse(xml.Attribute("YMax").Value);
+        }
+
+        private void Reload_Click(object sender, RoutedEventArgs e) {
+            this.canvas.ClearAndInitialize();
+
+            var xml = XElement.Load(@"Designer.xml");
+            draw(xml);
         }
     }
 }
