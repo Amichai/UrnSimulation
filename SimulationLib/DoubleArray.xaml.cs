@@ -156,6 +156,10 @@ namespace SimulationLib {
 
         private byte[][] frame;
 
+        public void SetCell(int x, int y, byte val) {
+            this.frame[x][y] = val;
+        }
+
         /// <summary>
         /// Be sure to call clearAndInitialize() before setting pixels on the canvas
         /// </summary>
@@ -238,5 +242,9 @@ namespace SimulationLib {
             }
         }
 
+
+        internal byte GetCell(int i, int j) {
+            return this.frame[i][j];
+        }
     }
 }

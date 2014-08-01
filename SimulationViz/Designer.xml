@@ -1,9 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<Canvas ArrayWidth="20" ArrayHeight="20" XMin="-5" XMax="5" YMin="-5" YMax="5">
+<Canvas ArrayWidth="800" ArrayHeight="800" XMin="-5" XMax="5" YMin="-5" YMax="5">
   <Layers>
-    <Function FofXY="33.3* 22 * 10* x * y">
-      
+    <Function FofXY="X * Math.Tan(Y) * Math.Cos(X) / (Y * Math.Sin(Y))">
     </Function>
   </Layers>
+
+  <ColorMappings>
+    <Mapping R="">
+      
+    </Mapping>
+  </ColorMappings>
 </Canvas>

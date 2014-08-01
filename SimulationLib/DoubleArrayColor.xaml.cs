@@ -20,7 +20,7 @@ using System.Windows.Shapes;
 
 namespace SimulationLib {
     /// <summary>
-    /// Interaction logic for DoubleArray.xaml
+    /// Interaction logic for DoubleArrayColor.xaml
     /// </summary>
     public partial class DoubleArrayColor : UserControl, INotifyPropertyChanged, IDraw {
         public DoubleArrayColor() {
@@ -36,62 +36,93 @@ namespace SimulationLib {
             this.ContentRendered = false;
         }
 
+        private DoubleArray r = new DoubleArray();
+        private DoubleArray g = new DoubleArray();
+        private DoubleArray b = new DoubleArray();
+        
+
         #region Dependency Properties
-        public double XMin {
-            get { return (double)GetValue(XMinProperty); }
-            set { SetValue(XMinProperty, value); }
-        }
 
-        public static readonly DependencyProperty XMinProperty =
-            DependencyProperty.Register("XMin", typeof(double), typeof(DoubleArray), new PropertyMetadata(0.0));
 
-        public double XMax {
-            get { return (double)GetValue(XMaxProperty); }
-            set { SetValue(XMaxProperty, value); }
-        }
 
-        public static readonly DependencyProperty XMaxProperty =
-            DependencyProperty.Register("XMax", typeof(double), typeof(DoubleArray), new PropertyMetadata(0.0));
-
-        public double YMin {
-            get { return (double)GetValue(YMinProperty); }
-            set { SetValue(YMinProperty, value); }
-        }
-
-        public static readonly DependencyProperty YMinProperty =
-            DependencyProperty.Register("YMin", typeof(double), typeof(DoubleArray), new PropertyMetadata(0.0));
-
+        private double _YMax;
         public double YMax {
-            get { return (double)GetValue(YMaxProperty); }
-            set { SetValue(YMaxProperty, value); }
+            get {
+                return _YMax;
+            }
+            set {
+                _YMax = value;
+                this.r.YMax = value;
+                this.g.YMax = value;
+                this.b.YMax = value;
+            }
         }
 
-        public static readonly DependencyProperty YMaxProperty =
-            DependencyProperty.Register("YMax", typeof(double), typeof(DoubleArray), new PropertyMetadata(0.0));
+        private double _XMax;
+        public double XMax {
+            get { return _XMax; }
+            set { 
+                _XMax = value;
+                this.r.XMax = value;
+                this.g.XMax = value;
+                this.b.XMax = value;
+            }
+        }
 
+
+
+        private double _XMin;
+        public double XMin {
+            get { return _XMin; }
+            set {
+                _XMin = value;
+                this.r.XMin = value;
+                this.g.XMin = value;
+                this.b.XMin = value;
+            }
+        }
+
+        private double _YMin;
+        public double YMin {
+            get { return _YMin; }
+            set {
+                _YMin = value;
+                this.r.YMin = value;
+                this.g.YMin = value;
+                this.b.YMin = value;
+            }
+        }
+
+
+        private int _ArrayWidth;
         public int ArrayWidth {
-            get { return (int)GetValue(ArrayWidthProperty); }
-            set { SetValue(ArrayWidthProperty, value); }
+            get { return _ArrayWidth; }
+            set { 
+                _ArrayWidth = value;
+                this.r.ArrayWidth = value;
+                this.g.ArrayWidth = value;
+                this.b.ArrayWidth = value;
+            }
         }
 
-        public static readonly DependencyProperty ArrayWidthProperty =
-            DependencyProperty.Register("ArrayWidth", typeof(int), typeof(DoubleArray), new PropertyMetadata(0));
-
+        private int _ArrayHeight;
         public int ArrayHeight {
-            get { return (int)GetValue(ArrayHeightProperty); }
-            set { SetValue(ArrayHeightProperty, value); }
+            get { return _ArrayHeight; }
+            set {
+                _ArrayHeight = value;
+                this.r.ArrayHeight = value;
+                this.g.ArrayHeight = value;
+                this.b.ArrayHeight = value;
+            }
         }
-
-        public static readonly DependencyProperty ArrayHeightProperty =
-            DependencyProperty.Register("ArrayHeight", typeof(int), typeof(DoubleArray), new PropertyMetadata(0));
-
+        
         public byte DefaultPixelValue {
             get { return (byte)GetValue(DefaultPixelValueProperty); }
             set { SetValue(DefaultPixelValueProperty, value); }
         }
 
         public static readonly DependencyProperty DefaultPixelValueProperty =
-            DependencyProperty.Register("DefaultPixelValue", typeof(byte), typeof(DoubleArray), new PropertyMetadata((byte)0));
+            DependencyProperty.Register("DefaultPixelValue", typeof(byte), typeof(DoubleArrayColor), new PropertyMetadata((byte)0));
         #endregion
 
         public double XRange {
@@ -127,13 +158,9 @@ namespace SimulationLib {
         }
 
         private void init() {
-            this.frame = new byte[this.ArrayWidth][];
-            for (int i = 0; i < this.ArrayWidth; i++) {
-                frame[i] = new byte[this.ArrayHeight];
-                for (int j = 0; j < this.ArrayHeight; j++) {
-                    frame[i][j] = this.DefaultPixelValue;
-                }
-            }
+            this.r.ClearAndInitialize();
+            this.g.ClearAndInitialize();
+            this.b.ClearAndInitialize();
         }
 
         public bool ContentRendered { get; private set; }
@@ -154,15 +181,12 @@ namespace SimulationLib {
             }
         }
 
-        private byte[][] frame;
+        //private byte[][] frame;
 
         /// <summary>
         /// Be sure to call clearAndInitialize() before setting pixels on the canvas
         /// </summary>
-        public void PixelSet(Vector v, byte val) {
-            if (this.frame == null) {
-                this.init();
-            }
+        public void PixelSet(Vector v, Color val) {
             var i = rd(((v.X - this.XMin) / this.XRange) * this.ArrayWidth);
             var j = rd(((v.Y - this.YMin) / this.YRange) * this.ArrayHeight);
             if (i < 0 || i > this.ArrayWidth - 1) {
@@ -171,7 +195,12 @@ namespace SimulationLib {
             if (j < 0 || j > this.ArrayHeight - 1) {
                 return;
             }
-            this.frame[i][this.ArrayHeight - j - 1] = val;
+
+            var y = this.ArrayHeight - j - 1;
+
+            this.r.SetCell(i, y, val.R);
+            this.g.SetCell(i, y, val.G);
+            this.b.SetCell(i, y, val.B);
         }
 
         private int rd(double r) {
@@ -179,12 +208,14 @@ namespace SimulationLib {
         }
 
         private byte[] toByteArray() {
-            var count = this.ArrayWidth * this.ArrayHeight;
+            var count = this.ArrayWidth * this.ArrayHeight * 3;
             byte[] output = new byte[count];
             int counter = 0;
             for (int i = 0; i < this.ArrayHeight; i++) {
                 for (int j = 0; j < this.ArrayWidth; j++) {
-                    output[counter++] = this.frame[j][i];
+                    output[counter++] = this.r.GetCell(j, i);
+                    output[counter++] = this.g.GetCell(j, i);
+                    output[counter++] = this.b.GetCell(j, i);
                 }
             }
             return output;
@@ -194,8 +225,8 @@ namespace SimulationLib {
             var buffer = toByteArray();
             var dpiX = 96d;
             var dpiY = 96d;
-            var pixelFormat = PixelFormats.Gray8; // grayscale bitmap
-            var bytesPerPixel = (pixelFormat.BitsPerPixel + 7) / 8; // == 1 in this example
+            var pixelFormat = PixelFormats.Rgb24; // Color bitmap
+            var bytesPerPixel = (pixelFormat.BitsPerPixel + 7) / 8; // == 3 in this example
 
             var stride = bytesPerPixel * this.ArrayWidth; // == width in this example
             var bitmap = BitmapSource.Create(this.ArrayWidth, this.ArrayHeight, dpiX, dpiY,
