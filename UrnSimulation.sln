@@ -10,6 +10,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulationLib", "SimulationLib\SimulationLib.csproj", "{20D7B14B-4FD0-4C38-A880-CF6BDBF07028}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsingModel", "IsingModel\IsingModel.csproj", "{4820FB42-C5F1-4ADA-B6DC-C1B694151C8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulationViz", "SimulationViz\SimulationViz.csproj", "{1F6BB6DB-49CE-4317-ACC8-65C61DA34163}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{CA6CD0CB-EB2C-497A-B68C-379CA965185C}"
 EndProject
@@ -41,6 +42,10 @@ Global
 		{4820FB42-C5F1-4ADA-B6DC-C1B694151C8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4820FB42-C5F1-4ADA-B6DC-C1B694151C8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4820FB42-C5F1-4ADA-B6DC-C1B694151C8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F6BB6DB-49CE-4317-ACC8-65C61DA34163}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6BB6DB-49CE-4317-ACC8-65C61DA34163}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6BB6DB-49CE-4317-ACC8-65C61DA34163}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6BB6DB-49CE-4317-ACC8-65C61DA34163}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CA6CD0CB-EB2C-497A-B68C-379CA965185C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CA6CD0CB-EB2C-497A-B68C-379CA965185C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA6CD0CB-EB2C-497A-B68C-379CA965185C}.Release|Any CPU.ActiveCfg = Release|Any CPU
