@@ -15,12 +15,13 @@ namespace SimulationViz {
         Func<double?, double> d2;
         Func<double?, double> d3;
 
-
+        public string Name { get; private set; }
         public static ColorMapping FromXml(XElement xml) {
             var m = new ColorMapping();
             var r = xml.Attribute("R").Value;
             var g = xml.Attribute("G").Value;
             var b = xml.Attribute("B").Value;
+            m.Name = xml.Attribute("Name").Value;
             double Value = 4;
             var c = (byte)((int)Math.Round(Value) % 255);
 

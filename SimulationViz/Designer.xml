@@ -1,20 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<Canvas ArrayWidth="800" ArrayHeight="800" XMin="-5" XMax="5" YMin="-5" YMax="5">
+<!--<Canvas ArrayWidth="800" ArrayHeight="800" XMin="0" XMax="50" YMin="-.2" YMax=".2">-->
+<Canvas ArrayWidth="800" ArrayHeight="800" XMin="1" XMax="4" YMin="0" YMax="1">
+
   <Layers>
-    <Function FofXY="X * Math.Tan(Y) * Math.Cos(X) / (Y * Math.Sin(Y))">
+    <!--<Function FofXY="X * Math.Tan(Y) * Math.Cos(X) / (Y * Math.Sin(Y))" Mapping="Mapping2">
     </Function>
 
-    <Function FofXY="Y * Math.Tan(X) * Math.Cos(Y) / (X * Math.Sin(X))">
-    </Function>
+    <Function FofXY="Y * Math.Tan(X) * Math.Cos(Y) / (X * Math.Sin(X))" Mapping="Mapping1">
+    </Function>-->
+    <ConvergenceAnalysis>
+      
+    </ConvergenceAnalysis>
   </Layers>
 
   <ColorMappings>
-             <!--R="(byte)((int)Math.Round(value) % 255)"--> 
     <Mapping Name="Mapping1"
-             R="Value % 255"
+             B="Value % 255"
              G="Value % 255"
-             B="255 - Value % 255" />
+             R="255 - Value % 255" />
 
     <Mapping Name="Mapping2"
          R="Value % 255"

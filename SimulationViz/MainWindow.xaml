@@ -2,15 +2,17 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:sim="clr-namespace:SimulationLib;assembly=SimulationLib"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition />
-
         </Grid.RowDefinitions>
         <Button Margin="5" Padding="3" HorizontalAlignment="Left" Width="100" Click="Reload_Click">Reload</Button>
-        <sim:DoubleArrayColor Name="canvas" Grid.Row="1">
+        <!--<ProgressBar Grid.Row="1" Height="7" Value="{Binding Progress}"></ProgressBar>-->
+        <sim:DoubleArrayColor Name="canvas" Grid.Row="2">
             
         </sim:DoubleArrayColor>
     </Grid>

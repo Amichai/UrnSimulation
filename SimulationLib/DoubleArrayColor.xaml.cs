@@ -115,14 +115,18 @@ namespace SimulationLib {
                 this.b.ArrayHeight = value;
             }
         }
-        
-        public byte DefaultPixelValue {
-            get { return (byte)GetValue(DefaultPixelValueProperty); }
-            set { SetValue(DefaultPixelValueProperty, value); }
+
+        private Color _defaultColor;
+        public Color DefaultPixelValue {
+            get { return _defaultColor; }
+            set {
+                _defaultColor = value;
+                this.r.DefaultPixelValue = value.R;
+                this.g.DefaultPixelValue = value.G;
+                this.b.DefaultPixelValue = value.B;
+            }
         }
 
-        public static readonly DependencyProperty DefaultPixelValueProperty =
-            DependencyProperty.Register("DefaultPixelValue", typeof(byte), typeof(DoubleArrayColor), new PropertyMetadata((byte)0));
         #endregion
 
         public double XRange {
